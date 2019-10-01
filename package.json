@@ -1,7 +1,9 @@
 {
   "name": "typescript-graphql",
   "scripts": {
+    "launch": "docker run --name postgres -e POSTGRES_PASSWORD=docker -d -p 5432:5432 -v pgdata:/var/lib/postgresql/data postgres:latest",
     "start": "ts-node-dev --no-notify --respawn --transpileOnly ./src",
+    "seed-afa": "ts-node src/seed/imsafa3p0pnp_datav1p0.ts",
     "seed": "ts-node prisma/seed.ts",
     "postinstall": "prisma2 generate"
   },
@@ -15,6 +17,6 @@
     "ts-node": "8.4.1",
     "ts-node-dev": "1.0.0-pre.43",
     "typescript": "3.6.3",
-    "prisma2": "2.0.0-preview-12"
+    "prisma2": "2.0.0-preview-13"
   }
 }

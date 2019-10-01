@@ -1,0 +1,31 @@
+datasource postgres {
+  provider = "postgresql"
+  url      = "postgresql://user:docker@localhost:5432"
+}
+
+generator photonjs {
+  provider = "photonjs"
+  output   = "../node_modules/@generated/photon"
+}
+
+generator nexus_prisma {
+  provider = "nexus-prisma"
+  output   = "../node_modules/@generated/nexus-prisma"
+}
+
+model User {
+  id    String  @default(cuid()) @id
+  email String  @unique
+  name  String?
+  posts Post[]
+}
+
+model Post {
+  id        String   @default(cuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  published Boolean @default(true)
+  title     String
+  content   String?
+  author    User?
+}

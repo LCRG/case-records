@@ -1,31 +1,202 @@
 datasource postgres {
   provider = "postgresql"
-  url      = "postgresql://user:docker@localhost:5432"
+  url      = "postgresql://postgres:docker@localhost:5432"
 }
 
 generator photonjs {
   provider = "photonjs"
-  output   = "../node_modules/@generated/photon"
-}
 
-generator nexus_prisma {
-  provider = "nexus-prisma"
-  output   = "../node_modules/@generated/nexus-prisma"
 }
 
 model User {
   id    String  @default(cuid()) @id
   email String  @unique
   name  String?
-  posts Post[]
 }
 
-model Post {
-  id        String   @default(cuid()) @id
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  published Boolean @default(true)
-  title     String
-  content   String?
-  author    User?
+model CFPackage {
+  id Int @id
+  CFDocument CFDocument
+  CFItems CFItem[]
+  CFAssociations CFAssociation[]
+  CFDefinitions CFDefinition[]
+  CFRubrics CFRubric[]
+}
+
+model CFDefinition {
+  id  Int  @id
+  CFConcepts CFConcept[]
+  CFSubjects CFSubject[]
+  CFLicenses CFLicense[]
+  CFItemTypes CFItemType[]
+  CFAssociationGroupings CFAssociationGrouping[]
+}
+
+model CFConcept {
+  id  Int  @id
+  identifier String
+  title String
+  uri String
+  keywords String
+  description String
+  hierarchyCode String
+  lastChangeDateTime DateTime
+}
+
+model CFSubject {
+  id  Int  @id
+  identifier String
+  title String
+  uri String
+  description String
+  hierarchyCode String
+  lastChangeDateTime DateTime
+}
+
+model CFLicense {
+  id  Int  @id
+  identifier String
+  title String
+  uri String
+  keywords String
+  description String
+  licenseText String
+  lastChangeDateTime DateTime
+}
+
+model CFItemType {
+  id  Int  @id
+  identifier String
+  title String
+  uri String
+  description String
+  hierarchyCode String
+  typeCode String
+  lastChangeDateTime DateTime
+}
+
+model CFAssociationGrouping {
+  id  Int  @id
+  identifier String
+  title String
+  uri String
+  description String
+  lastChangeDateTime DateTime
+}
+
+model CFDocument {
+  id  Int  @id
+  identifier String
+  uri String
+  creator String
+  title String
+  lastChangeDateTime DateTime
+  CFPackageURI LinkURI
+  officialSourceURL String
+  publisher String
+  description String
+  subject String[]
+  subjectURI LinkURI[]
+  language String
+  version String
+  adoptionStatus String
+  statusStartDate DateTime
+  statusEndDate DateTime
+  licenseURI LinkURI
+  notes String
+}
+
+model CFItem {
+  id  Int  @id
+  identifier String
+  uri String
+  fullStatement String
+  alternativeLabel String
+  CFItemType CFItemType
+  CFItemTypeURI LinkURI
+  humanCodingScheme String
+  listEnumeration String
+  abbreviatedStatement String
+  conceptKeywords String[]
+  conceptKeywordsURI LinkURI
+  notes String
+  language String
+  educationLevel String[]
+  statusStartDate DateTime
+  statusEndDate DateTime
+  licenseURI LinkURI
+}
+
+model LinkURI {
+  id  Int  @id
+  identifier String
+  title String
+  uri String
+}
+
+model CFAssociation {
+  id  Int  @id
+  identifier String
+  uri String
+  CFDocumentURI LinkURI
+  associationType CFAssociationTypeEnum
+  sequenceNumber Int
+  originNodeURI LinkGenURI
+  destinationNodeURI LinkGenURI
+  CFAssociationGroupingURI LinkGenURI
+}
+
+model CFRubric {
+  id  Int  @id
+  identifier String
+  title String
+  uri String
+  description String
+  lastChangeDateTime DateTime
+  CFRubricCriteria CFRubricCriterion[]
+}
+
+model CFRubricCriterion {
+  id  Int  @id
+  identifier String
+  category String
+  uri String
+  description String
+  CFItemURI LinkURI
+  weight Int
+  position Int
+  rubricId String
+  lastChangeDateTime DateTime
+}
+
+model CFRubricCriterionLevel {
+  id  Int  @id
+  identifier String
+  quality String
+  uri String
+  description String
+  score Int
+  feedback String
+  position Int
+  rubricCriterionId String
+  lastChangeDateTime DateTime
+}
+
+model LinkGenURI {
+  id  Int  @id
+  identifier String
+  title String
+  uri String
+}
+
+enum CFAssociationTypeEnum {
+  IsChildOf,
+  IsPeerOf,
+  IsPartOf,
+  ExactMatchOf,
+  Precedes,
+  IsRelatedTo,
+  ReplacedBy,
+  Exemplar,
+  HasSkillLevel
 }

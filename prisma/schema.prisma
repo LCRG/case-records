@@ -91,18 +91,18 @@ model CFDocument {
   creator String
   title String
   lastChangeDateTime DateTime
-  CFPackageURI LinkURI
+  CFPackageURI LinkURI @relation(name: "CFPackageURILinkURI")
   officialSourceURL String
   publisher String
   description String
   subject String[]
-  subjectURI LinkURI[]
+  subjectURI LinkURI[] @relation(name: "subjectURILinkURIs")
   language String
   version String
   adoptionStatus String
   statusStartDate DateTime
   statusEndDate DateTime
-  licenseURI LinkURI
+  licenseURI LinkURI @relation(name: "licenseURILinkURI")
   notes String
 }
 
@@ -113,18 +113,18 @@ model CFItem {
   fullStatement String
   alternativeLabel String
   CFItemType CFItemType
-  CFItemTypeURI LinkURI
+  CFItemTypeURI LinkURI @relation(name: "CFItemTypeURILinkURI")
   humanCodingScheme String
   listEnumeration String
   abbreviatedStatement String
   conceptKeywords String[]
-  conceptKeywordsURI LinkURI
+  conceptKeywordsURI LinkURI @relation(name: "conceptKeywordsURILinkURI")
   notes String
   language String
   educationLevel String[]
   statusStartDate DateTime
   statusEndDate DateTime
-  licenseURI LinkURI
+  licenseURI LinkURI @relation(name: "licenseURILinkURI")
 }
 
 model LinkURI {
@@ -132,6 +132,12 @@ model LinkURI {
   identifier String
   title String
   uri String
+  CFItemTypeURI CFItem @relation(name: "CFItemTypeURILinkURI")
+  conceptKeywords CFItem @relation(name: "conceptKeywordsURILinkURI")
+  licenseURI CFItem @relation(name: "licenseURILinkURI")
+  CFPackageURI CFDocument @relation(name: "CFPackageURILinkURI")
+  subjectURIs CFDocument @relation(name: "subjectURILinkURIs")
+  licenseURI CFDocument @relation(name: "licenseURILinkURI")
 }
 
 model CFAssociation {
@@ -187,16 +193,17 @@ model LinkGenURI {
   identifier String
   title String
   uri String
+  originNodeURIs CFAssociation
 }
 
 enum CFAssociationTypeEnum {
-  IsChildOf,
-  IsPeerOf,
-  IsPartOf,
-  ExactMatchOf,
-  Precedes,
-  IsRelatedTo,
-  ReplacedBy,
-  Exemplar,
+  IsChildOf
+  IsPeerOf
+  IsPartOf
+  ExactMatchOf
+  Precedes
+  IsRelatedTo
+  ReplacedBy
+  Exemplar
   HasSkillLevel
 }

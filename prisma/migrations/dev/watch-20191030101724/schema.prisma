@@ -1,6 +1,6 @@
 datasource postgres {
   provider = "postgresql"
-  url      = "postgresql://postgres:docker@localhost:5432"
+  url = "***"
 }
 
 generator photonjs {

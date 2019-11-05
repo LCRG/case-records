@@ -1,0 +1,2540 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateModel",
+      "name": "User",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "Post",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFPackage",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFDefinition",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFConcept",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFSubject",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFLicense",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFItemType",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFAssociationGrouping",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFDocument",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFItem",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "LinkURI",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFPackageURI",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "LicenseURI",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFItemTypeURI",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "ConceptKeywordsURI",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFAssociation",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFRubric",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFRubricCriterion",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFRubricCriterionLevel",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "LinkGenURI",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "DestinationNodeURI",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CFAssociationGroupingURI",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "email",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": true
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "name",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "posts",
+      "type": {
+        "Relation": {
+          "to": "Post",
+          "to_fields": [],
+          "name": "UserPosts",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "bookmarks",
+      "type": {
+        "Relation": {
+          "to": "Post",
+          "to_fields": [
+            "id"
+          ],
+          "name": "UserBookmarks",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "author",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "UserPosts",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Post",
+      "name": "bookmarkedBy",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "UserBookmarks",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFPackage",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFPackage",
+      "name": "CFDocument",
+      "type": {
+        "Relation": {
+          "to": "CFDocument",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFDocumentToCFPackage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFPackage",
+      "name": "CFItems",
+      "type": {
+        "Relation": {
+          "to": "CFItem",
+          "to_fields": [],
+          "name": "CFItemToCFPackage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFPackage",
+      "name": "CFAssociations",
+      "type": {
+        "Relation": {
+          "to": "CFAssociation",
+          "to_fields": [],
+          "name": "CFAssociationToCFPackage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFPackage",
+      "name": "CFDefinitions",
+      "type": {
+        "Relation": {
+          "to": "CFDefinition",
+          "to_fields": [],
+          "name": "CFDefinitionToCFPackage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFPackage",
+      "name": "CFRubrics",
+      "type": {
+        "Relation": {
+          "to": "CFRubric",
+          "to_fields": [],
+          "name": "CFPackageToCFRubric",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDefinition",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDefinition",
+      "name": "CFConcepts",
+      "type": {
+        "Relation": {
+          "to": "CFConcept",
+          "to_fields": [],
+          "name": "CFConceptToCFDefinition",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDefinition",
+      "name": "CFSubjects",
+      "type": {
+        "Relation": {
+          "to": "CFSubject",
+          "to_fields": [],
+          "name": "CFDefinitionToCFSubject",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDefinition",
+      "name": "CFLicenses",
+      "type": {
+        "Relation": {
+          "to": "CFLicense",
+          "to_fields": [],
+          "name": "CFDefinitionToCFLicense",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDefinition",
+      "name": "CFItemTypes",
+      "type": {
+        "Relation": {
+          "to": "CFItemType",
+          "to_fields": [],
+          "name": "CFDefinitionToCFItemType",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDefinition",
+      "name": "CFAssociationGroupings",
+      "type": {
+        "Relation": {
+          "to": "CFAssociationGrouping",
+          "to_fields": [],
+          "name": "CFAssociationGroupingToCFDefinition",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDefinition",
+      "name": "cFPackage",
+      "type": {
+        "Relation": {
+          "to": "CFPackage",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFDefinitionToCFPackage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFConcept",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFConcept",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFConcept",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFConcept",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFConcept",
+      "name": "keywords",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFConcept",
+      "name": "description",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFConcept",
+      "name": "hierarchyCode",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFConcept",
+      "name": "lastChangeDateTime",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFConcept",
+      "name": "cFDefinition",
+      "type": {
+        "Relation": {
+          "to": "CFDefinition",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFConceptToCFDefinition",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFSubject",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFSubject",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFSubject",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFSubject",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFSubject",
+      "name": "description",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFSubject",
+      "name": "hierarchyCode",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFSubject",
+      "name": "lastChangeDateTime",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFSubject",
+      "name": "cFDefinition",
+      "type": {
+        "Relation": {
+          "to": "CFDefinition",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFDefinitionToCFSubject",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFLicense",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFLicense",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFLicense",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFLicense",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFLicense",
+      "name": "keywords",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFLicense",
+      "name": "description",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFLicense",
+      "name": "licenseText",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFLicense",
+      "name": "lastChangeDateTime",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFLicense",
+      "name": "cFDefinition",
+      "type": {
+        "Relation": {
+          "to": "CFDefinition",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFDefinitionToCFLicense",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemType",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemType",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemType",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemType",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemType",
+      "name": "description",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemType",
+      "name": "hierarchyCode",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemType",
+      "name": "typeCode",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemType",
+      "name": "lastChangeDateTime",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemType",
+      "name": "cFDefinition",
+      "type": {
+        "Relation": {
+          "to": "CFDefinition",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFDefinitionToCFItemType",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemType",
+      "name": "cFItems",
+      "type": {
+        "Relation": {
+          "to": "CFItem",
+          "to_fields": [],
+          "name": "CFItemToCFItemType",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociationGrouping",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociationGrouping",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociationGrouping",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociationGrouping",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociationGrouping",
+      "name": "description",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociationGrouping",
+      "name": "lastChangeDateTime",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociationGrouping",
+      "name": "cFDefinition",
+      "type": {
+        "Relation": {
+          "to": "CFDefinition",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFAssociationGroupingToCFDefinition",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "creator",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "lastChangeDateTime",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "CFPackageURI",
+      "type": {
+        "Relation": {
+          "to": "CFPackageURI",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFDocumentToCFPackageURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "officialSourceURL",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "publisher",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "description",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "subject",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "subjectURI",
+      "type": {
+        "Relation": {
+          "to": "LinkURI",
+          "to_fields": [],
+          "name": "CFDocumentToLinkURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "language",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "version",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "adoptionStatus",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "statusStartDate",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "statusEndDate",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "licenseURI",
+      "type": {
+        "Relation": {
+          "to": "LicenseURI",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFDocumentToLicenseURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "notes",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFDocument",
+      "name": "cFPackages",
+      "type": {
+        "Relation": {
+          "to": "CFPackage",
+          "to_fields": [],
+          "name": "CFDocumentToCFPackage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "fullStatement",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "alternativeLabel",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "CFItemType",
+      "type": {
+        "Relation": {
+          "to": "CFItemType",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFItemToCFItemType",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "CFItemTypeURI",
+      "type": {
+        "Relation": {
+          "to": "CFItemTypeURI",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFItemToCFItemTypeURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "humanCodingScheme",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "listEnumeration",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "abbreviatedStatement",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "conceptKeywords",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "conceptKeywordsURI",
+      "type": {
+        "Relation": {
+          "to": "ConceptKeywordsURI",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFItemToConceptKeywordsURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "notes",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "language",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "educationLevel",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "statusStartDate",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "statusEndDate",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "licenseURI",
+      "type": {
+        "Relation": {
+          "to": "LinkURI",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFItemToLinkURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItem",
+      "name": "cFPackage",
+      "type": {
+        "Relation": {
+          "to": "CFPackage",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFItemToCFPackage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LinkURI",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LinkURI",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LinkURI",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LinkURI",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LinkURI",
+      "name": "cFDocument",
+      "type": {
+        "Relation": {
+          "to": "CFDocument",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFDocumentToLinkURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LinkURI",
+      "name": "cFItems",
+      "type": {
+        "Relation": {
+          "to": "CFItem",
+          "to_fields": [],
+          "name": "CFItemToLinkURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LinkURI",
+      "name": "cFAssociations",
+      "type": {
+        "Relation": {
+          "to": "CFAssociation",
+          "to_fields": [],
+          "name": "CFAssociationToLinkURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LinkURI",
+      "name": "cFRubricCriteria",
+      "type": {
+        "Relation": {
+          "to": "CFRubricCriterion",
+          "to_fields": [],
+          "name": "CFRubricCriterionToLinkURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFPackageURI",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFPackageURI",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFPackageURI",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFPackageURI",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFPackageURI",
+      "name": "cFDocuments",
+      "type": {
+        "Relation": {
+          "to": "CFDocument",
+          "to_fields": [],
+          "name": "CFDocumentToCFPackageURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LicenseURI",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LicenseURI",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LicenseURI",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LicenseURI",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LicenseURI",
+      "name": "cFDocuments",
+      "type": {
+        "Relation": {
+          "to": "CFDocument",
+          "to_fields": [],
+          "name": "CFDocumentToLicenseURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemTypeURI",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemTypeURI",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemTypeURI",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemTypeURI",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFItemTypeURI",
+      "name": "cFItems",
+      "type": {
+        "Relation": {
+          "to": "CFItem",
+          "to_fields": [],
+          "name": "CFItemToCFItemTypeURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ConceptKeywordsURI",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ConceptKeywordsURI",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ConceptKeywordsURI",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ConceptKeywordsURI",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "ConceptKeywordsURI",
+      "name": "cFItems",
+      "type": {
+        "Relation": {
+          "to": "CFItem",
+          "to_fields": [],
+          "name": "CFItemToConceptKeywordsURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociation",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociation",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociation",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociation",
+      "name": "CFDocumentURI",
+      "type": {
+        "Relation": {
+          "to": "LinkURI",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFAssociationToLinkURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociation",
+      "name": "associationType",
+      "type": {
+        "Enum": "CFAssociationTypeEnum"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociation",
+      "name": "sequenceNumber",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociation",
+      "name": "originNodeURI",
+      "type": {
+        "Relation": {
+          "to": "LinkGenURI",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFAssociationToLinkGenURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociation",
+      "name": "destinationNodeURI",
+      "type": {
+        "Relation": {
+          "to": "DestinationNodeURI",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFAssociationToDestinationNodeURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociation",
+      "name": "CFAssociationGroupingURI",
+      "type": {
+        "Relation": {
+          "to": "CFAssociationGroupingURI",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFAssociationToCFAssociationGroupingURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociation",
+      "name": "cFPackage",
+      "type": {
+        "Relation": {
+          "to": "CFPackage",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFAssociationToCFPackage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubric",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubric",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubric",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubric",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubric",
+      "name": "description",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubric",
+      "name": "lastChangeDateTime",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubric",
+      "name": "CFRubricCriteria",
+      "type": {
+        "Relation": {
+          "to": "CFRubricCriterion",
+          "to_fields": [],
+          "name": "CFRubricToCFRubricCriterion",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubric",
+      "name": "cFPackage",
+      "type": {
+        "Relation": {
+          "to": "CFPackage",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFPackageToCFRubric",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterion",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterion",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterion",
+      "name": "category",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterion",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterion",
+      "name": "description",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterion",
+      "name": "CFItemURI",
+      "type": {
+        "Relation": {
+          "to": "LinkURI",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFRubricCriterionToLinkURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterion",
+      "name": "weight",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterion",
+      "name": "position",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterion",
+      "name": "rubricId",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterion",
+      "name": "lastChangeDateTime",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterion",
+      "name": "cFRubric",
+      "type": {
+        "Relation": {
+          "to": "CFRubric",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CFRubricToCFRubricCriterion",
+          "on_delete": "None"
+        }
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterionLevel",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterionLevel",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterionLevel",
+      "name": "quality",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterionLevel",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterionLevel",
+      "name": "description",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterionLevel",
+      "name": "score",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterionLevel",
+      "name": "feedback",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterionLevel",
+      "name": "position",
+      "type": {
+        "Base": "Int"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterionLevel",
+      "name": "rubricCriterionId",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFRubricCriterionLevel",
+      "name": "lastChangeDateTime",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LinkGenURI",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LinkGenURI",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LinkGenURI",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LinkGenURI",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "LinkGenURI",
+      "name": "originNodeURIs",
+      "type": {
+        "Relation": {
+          "to": "CFAssociation",
+          "to_fields": [],
+          "name": "CFAssociationToLinkGenURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DestinationNodeURI",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DestinationNodeURI",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DestinationNodeURI",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DestinationNodeURI",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "DestinationNodeURI",
+      "name": "originNodeURIs",
+      "type": {
+        "Relation": {
+          "to": "CFAssociation",
+          "to_fields": [],
+          "name": "CFAssociationToDestinationNodeURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociationGroupingURI",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociationGroupingURI",
+      "name": "identifier",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociationGroupingURI",
+      "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociationGroupingURI",
+      "name": "uri",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CFAssociationGroupingURI",
+      "name": "originNodeURIs",
+      "type": {
+        "Relation": {
+          "to": "CFAssociation",
+          "to_fields": [],
+          "name": "CFAssociationToCFAssociationGroupingURI",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "CFAssociationTypeEnum",
+      "values": [
+        "IsChildOf",
+        "IsPeerOf",
+        "IsPartOf",
+        "ExactMatchOf",
+        "Precedes",
+        "IsRelatedTo",
+        "ReplacedBy",
+        "Exemplar",
+        "HasSkillLevel"
+      ]
+    }
+  ]
+}

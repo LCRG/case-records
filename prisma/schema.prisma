@@ -8,26 +8,11 @@ generator photonjs {
 
 }
 
-
-model User {
-    id  String @default(cuid()) @id
-    email     String @unique
-    name      String?
-    posts     Post[] @relation(name: "UserPosts")
-    bookmarks Post[] @relation(name: "UserBookmarks")
-}
-
-model Post {
-    id            String @default(cuid()) @id
-    author        User? @relation(name: "UserPosts")
-    bookmarkedBy  User[] @relation(name: "UserBookmarks")
-}
-
 model CFPackage {
   id  String @default(cuid()) @id
-  CFDocument CFDocument
-  CFItems CFItem[]
-  CFAssociations CFAssociation[]
+  CFDocument CFPckgDocument
+  CFItems CFPckgItem[]
+  CFAssociations CFPckgAssociation[]
   CFDefinitions CFDefinition[]
   CFRubrics CFRubric[]
 }
@@ -46,10 +31,15 @@ model CFConcept {
   identifier String
   title String
   uri String
-  keywords String
-  description String
+  keywords String?
+  description String?
   hierarchyCode String
   lastChangeDateTime DateTime
+}
+
+model CFConceptSet {
+  id  String @default(cuid()) @id
+  CFConcepts CFConcept[]
 }
 
 model CFSubject {
@@ -57,9 +47,14 @@ model CFSubject {
   identifier String
   title String
   uri String
-  description String
+  description String?
   hierarchyCode String
   lastChangeDateTime DateTime
+}
+
+model CFsubjectSet {
+  id  String @default(cuid()) @id
+  CFSubjects CFSubject[]
 }
 
 model CFLicense {
@@ -68,7 +63,7 @@ model CFLicense {
   title String
   uri String
   keywords String
-  description String
+  description String?
   licenseText String
   lastChangeDateTime DateTime
 }
@@ -80,8 +75,13 @@ model CFItemType {
   uri String
   description String
   hierarchyCode String
-  typeCode String
+  typeCode String?
   lastChangeDateTime DateTime
+}
+
+model CFItemTypeSet {
+  id  String @default(cuid()) @id
+  CFItemTypes CFItemType[]
 }
 
 model CFAssociationGrouping {
@@ -89,7 +89,7 @@ model CFAssociationGrouping {
   identifier String
   title String
   uri String
-  description String
+  description String?
   lastChangeDateTime DateTime
 }
 
@@ -100,19 +100,45 @@ model CFDocument {
   creator String
   title String
   lastChangeDateTime DateTime
-  CFPackageURI CFPackageURI
-  officialSourceURL String
-  publisher String
-  description String
+  CFPackageURI LinkURI @relation(name: "CFPackageURItoLinkURI")
+  officialSourceURL String?
+  publisher String?
+  description String?
   subject String[]
-  subjectURI LinkURI[]
-  language String
-  version String
-  adoptionStatus String
-  statusStartDate DateTime
-  statusEndDate DateTime
-  licenseURI LicenseURI
-  notes String
+  subjectURI LinkURI[] @relation(name: "subjectURItoLinkURI")
+  language String?
+  version String?
+  adoptionStatus String?
+  statusStartDate DateTime?
+  statusEndDate DateTime?
+  licenseURI LinkURI?
+  notes String?
+}
+
+model CFPckgDocument {
+   id  String @default(cuid()) @id
+   identifier String
+  title String
+  creator String
+  uri String
+  lastChangeDateTime DateTime
+  officialSourceURL String?
+  publisher String?
+  description String?
+  subject String[]
+  subjectURI LinkURI[] @relation(name: "CFPckgDocumentsubjectURItoLinkURI")
+  language String?
+  version String?
+  adoptionStatus String?
+  statusStartDate DateTime?
+  statusEndDate DateTime?
+  licenseURI LinkURI?
+  notes String?
+}
+
+model CFDocumentSet {
+  id  String @default(cuid()) @id
+  CFDocuments CFDocument[]
 }
 
 model CFItem {
@@ -120,20 +146,44 @@ model CFItem {
   identifier String
   uri String
   fullStatement String
-  alternativeLabel String
-  CFItemType CFItemType
-  CFItemTypeURI CFItemTypeURI
-  humanCodingScheme String
-  listEnumeration String
-  abbreviatedStatement String
+  alternativeLabel String?
+  CFItemType String?
+  CFItemTypeURI LinkURI @relation(name: "CFItemTypeURItoLinkURI")
+  humanCodingScheme String?
+  listEnumeration String?
+  abbreviatedStatement String?
   conceptKeywords String[]
-  conceptKeywordsURI ConceptKeywordsURI 
-  notes String
-  language String
+  conceptKeywordsURI LinkURI @relation(name: "conceptKeywordsURItoLinkURI")
+  notes String?
+  language String?
   educationLevel String[]
-  statusStartDate DateTime
-  statusEndDate DateTime
-  licenseURI LinkURI
+  statusStartDate DateTime?
+  statusEndDate DateTime?
+  licenseURI LinkURI @relation(name: "licenseURItoLinkURI")
+  lastChangeDateTime DateTime
+  CFDocumentURI LinkURI
+}
+
+model CFPckgItem {
+  id  String @default(cuid()) @id
+  identifier String
+  uri String
+  fullStatement String
+  alternativeLabel String?
+  CFItemType String?
+  CFItemTypeURI LinkURI @relation(name: "CFPckgItemCFItemTypeURItoLinkURI")
+  humanCodingScheme String?
+  listEnumeration String?
+  abbreviatedStatement String?
+  conceptKeywords String[]
+  conceptKeywordsURI LinkURI @relation(name: "CFPckgItemconceptKeywordsURItoLinkURI")
+  notes String?
+  language String?
+  educationLevel String[]
+  statusStartDate DateTime?
+  statusEndDate DateTime?
+  licenseURI LinkURI @relation(name: "CFPckgItemlicenseURItoLinkURI")
+  lastChangeDateTime DateTime
 }
 
 model LinkURI {
@@ -141,34 +191,17 @@ model LinkURI {
   identifier String
   title String
   uri String
-}
-
-model CFPackageURI {
-  id  String @default(cuid()) @id
-  identifier String
-  title String
-  uri String
-}
-
-model LicenseURI {
-  id  String @default(cuid()) @id
-  identifier String
-  title String
-  uri String
-}
-
-model CFItemTypeURI {
-  id  String @default(cuid()) @id
-  identifier String
-  title String
-  uri String
-}
-
-model ConceptKeywordsURI {
-  id  String @default(cuid()) @id
-  identifier String
-  title String
-  uri String
+  CFAssociationtoLinkURI CFAssociation @relation(name: "CFAssociationtoLinkURI")
+  CFPckgAssociationtoLinkURI CFPckgAssociation @relation(name: "CFPckgAssociationtoLinkURI")
+  CFPackageURItoLinkURI CFDocument @relation(name: "CFPackageURItoLinkURI")
+  subjectURItoLinkURI CFDocument @relation(name: "subjectURItoLinkURI")
+  conceptKeywordsURItoLinkURI CFItem @relation(name: "conceptKeywordsURItoLinkURI")
+  CFItemTypeURItoLinkURI CFItem @relation(name: "CFItemTypeURItoLinkURI")
+  licenseURItoLinkURI CFItem @relation(name: "licenseURItoLinkURI")
+  CFPckgItemCFItemTypeURItoLinkURI CFPckgItem @relation(name: "CFPckgItemCFItemTypeURItoLinkURI")
+  CFPckgItemconceptKeywordsURItoLinkURI CFPckgItem @relation(name: "CFPckgItemconceptKeywordsURItoLinkURI")
+  CFPckgItemlicenseURItoLinkURI CFPckgItem @relation(name: "CFPckgItemlicenseURItoLinkURI")
+  CFPckgDocumentsubjectURItoLinkURI CFPckgDocument @relation(name: "CFPckgDocumentsubjectURItoLinkURI")
 }
 
 model CFAssociation {
@@ -177,18 +210,37 @@ model CFAssociation {
   uri String
   CFDocumentURI LinkURI
   associationType CFAssociationTypeEnum
-  sequenceNumber Int
+  sequenceNumber Int?
   originNodeURI LinkGenURI
-  destinationNodeURI DestinationNodeURI
-  CFAssociationGroupingURI CFAssociationGroupingURI
+  destinationNodeURI LinkGenURI @relation(name: "destinationNodeURItoLinkGenURI")
+  CFAssociationGroupingURI LinkURI? @relation(name: "CFAssociationtoLinkURI")
+  lastChangeDateTime DateTime
+}
+
+model CFAssociationSet {
+  id  String @default(cuid()) @id
+  CFItem CFItem
+  CFAssociations CFPckgAssociation[]
+}
+
+model CFPckgAssociation {
+  id  String @default(cuid()) @id
+  identifier String
+  associationType CFAssociationTypeEnum[]
+  sequenceNumber Int?
+  uri String
+  originNodeURI LinkGenURI
+  destinationNodeURI LinkGenURI @relation(name: "CFPckgAssociationtoLinkGenURI")
+  CFAssociationGroupingURI LinkURI? @relation(name: "CFPckgAssociationtoLinkURI")
+  lastChangeDateTime DateTime
 }
 
 model CFRubric {
   id  String @default(cuid()) @id
   identifier String
-  title String
+  title String?
   uri String
-  description String
+  description String?
   lastChangeDateTime DateTime
   CFRubricCriteria CFRubricCriterion[]
 }
@@ -196,26 +248,27 @@ model CFRubric {
 model CFRubricCriterion {
   id  String @default(cuid()) @id
   identifier String
-  category String
+  category String?
   uri String
-  description String
-  CFItemURI LinkURI
-  weight Int
-  position Int
-  rubricId String
+  description String?
+  CFItemURI LinkURI?
+  weight Int?
+  position Int?
+  rubricId String?
   lastChangeDateTime DateTime
+  CFRubricCriterionLevels CFRubricCriterionLevel[]
 }
 
 model CFRubricCriterionLevel {
   id  String @default(cuid()) @id
   identifier String
-  quality String
+  quality String?
   uri String
-  description String
-  score Int
-  feedback String
-  position Int
-  rubricCriterionId String
+  description String?
+  score Int?
+  feedback String?
+  position Int?
+  rubricCriterionId String?
   lastChangeDateTime DateTime
 }
 
@@ -224,32 +277,18 @@ model LinkGenURI {
   identifier String
   title String
   uri String
-  originNodeURIs CFAssociation
-}
-
-model DestinationNodeURI {
-  id  String @default(cuid()) @id
-  identifier String
-  title String
-  uri String
-  originNodeURIs CFAssociation
-}
-model CFAssociationGroupingURI {
-  id  String @default(cuid()) @id
-  identifier String
-  title String
-  uri String
-  originNodeURIs CFAssociation
+  destinationNodeURItoCFAssociation CFAssociation @relation(name: "destinationNodeURItoLinkGenURI")
+  destinationNodeURItoCFPckgAssociation CFPckgAssociation @relation(name: "CFPckgAssociationtoLinkGenURI")
 }
 
 enum CFAssociationTypeEnum {
-  IsChildOf
-  IsPeerOf
-  IsPartOf
-  ExactMatchOf
-  Precedes
-  IsRelatedTo
-  ReplacedBy
-  Exemplar
-  HasSkillLevel
+  isChildOf
+  isPeerOf
+  isPartOf
+  exactMatchOf
+  precedes
+  isRelatedTo
+  replacedBy
+  exemplar
+  hasSkillLevel
 }

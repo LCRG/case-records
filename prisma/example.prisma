@@ -1,0 +1,13 @@
+model User {
+    id  String @default(cuid()) @id
+    email     String @unique
+    name      String?
+    posts     Post[] @relation(name: "UserPosts")
+    bookmarks Post[] @relation(name: "UserBookmarks")
+}
+
+model Post {
+    id            String @default(cuid()) @id
+    author        User? @relation(name: "UserPosts")
+    bookmarkedBy  User[] @relation(name: "UserBookmarks")
+}
